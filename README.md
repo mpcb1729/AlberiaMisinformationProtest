@@ -4,18 +4,12 @@
 
 ---
 
-## ハッカソン提出デモ
-
-提出用デモは Ollama / `qwen3:8b` を使う LLM 実行で生成します。
+## シミュレーション実行
 
 ```bash
-python main.py --config config_llm_submission.yaml --save-frames
-python generate_video.py output_llm_submission/ -o submission/S.HAlberiaMisinformationProtestデモ動画.mp4 --fps 1 --with-log
+python main.py --config config.yaml --save-frames
+python generate_video.py output_llm_submission
 ```
-
-`config_llm_submission.yaml` は、締切内に完走できる範囲で規模を上げた提出用設定です。
-`agents.llm_decision_interval: 1` のため、市民エージェントの判断は毎ステップ Ollama に委譲されます。
-`decisions.jsonl` の `decision_source` が `llm` の行は、Ollama 応答をパースして採用した判断です。
 
 ---
 
@@ -35,9 +29,9 @@ LLMエージェントが決めるもの: 情報の解釈、信念更新、感情
 
 ---
 
-## Epstein Civil Violence との違い
+## Civil Violence との違い
 
-| 観点 | Epstein Civil Violence | 本モデル |
+| 観点 | Civil Violence | 本モデル |
 |------|----------------------|---------|
 | 行動決定 | 数値属性による固定ルール | LLMによる自律解釈 |
 | 状態遷移 | `grievance > threshold` などの式 | LLMがJSON出力で決定 |
