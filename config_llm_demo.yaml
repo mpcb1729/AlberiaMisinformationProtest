@@ -1,0 +1,126 @@
+# Submission demo configuration.
+# Runs with Ollama enabled and every citizen decision delegated to the LLM.
+# Agent count and step count are intentionally smaller than config.yaml so the
+# demo can finish within hackathon submission time.
+
+simulation:
+  steps: 25
+  width: 20
+  height: 20
+  seed: 42
+
+agents:
+  citizen_density: 0.0125      # 5 citizens on a 20x20 grid
+  cop_density: 0.0025          # 1 safety officer
+  influencer_count: 2
+  official_count: 1
+  vision: 4
+  max_jail_term: 8
+  memory_limit: 8
+  message_context_size: 4
+  post_context_size: 4
+  llm_decision_interval: 1     # every citizen decision uses Ollama
+  initial_legitimacy_government: 0.45
+  initial_legitimacy_protest: 0.35
+  average_media_literacy: 0.45
+  average_trust_in_official_info: 0.45
+  average_trust_in_peer_info: 0.65
+
+llm:
+  model: "qwen3:8b"
+  base_url: "http://localhost:11434"
+  temperature: 0.35
+  max_tokens: 768
+  repeat_penalty: 1.1
+  repeat_last_n: 128
+  min_p: 0.05
+  use_llm: true
+
+landmarks:
+  home_area:
+    x: [0, 5]
+    y: [0, 5]
+    center: [2, 2]
+  station:
+    x: [8, 11]
+    y: [0, 3]
+    center: [9, 1]
+  central_square:
+    x: [7, 13]
+    y: [7, 13]
+    center: [10, 10]
+  city_hall:
+    x: [15, 19]
+    y: [14, 19]
+    center: [17, 16]
+  media_zone:
+    x: [0, 4]
+    y: [14, 19]
+    center: [2, 16]
+  small_gathering_a:
+    x: [5, 8]
+    y: [9, 13]
+    center: [6, 11]
+  small_gathering_b:
+    x: [13, 17]
+    y: [3, 7]
+    center: [15, 5]
+  police_station:
+    x: [16, 19]
+    y: [0, 4]
+    center: [17, 2]
+  exit_zone:
+    x: [0, 3]
+    y: [9, 13]
+    center: [1, 11]
+
+events:
+  - event_id: "evt_001"
+    step: 2
+    location: "city_hall"
+    ground_truth: "配給待ちの列で口論が起き、受付が一時停止した。"
+    rumor: "行政職員が市民を意図的に排除したとの証言が広まっている。"
+    truth_status: "MISLEADING"
+    severity: 0.45
+    spread_radius: 5
+    online_reach: 45
+  - event_id: "evt_002"
+    step: 9
+    location: "central_square"
+    ground_truth: "中央広場で自然発生的に人々が集まり始めた。"
+    rumor: "抗議に参加しないと配給がもらえなくなるという噂が広まっている。"
+    truth_status: "FALSE"
+    severity: 0.65
+    spread_radius: 7
+    online_reach: 70
+  - event_id: "evt_003"
+    step: 16
+    location: "media_zone"
+    ground_truth: "地域メディアが evt_001 の真相について独自調査を開始した。"
+    rumor: "メディアが行政に圧力をかけられ真実を報道できないという噂。"
+    truth_status: "UNVERIFIED"
+    severity: 0.35
+    spread_radius: 6
+    online_reach: 55
+
+official:
+  response_delay: 7
+
+influencers:
+  - alignment: "sensational"
+    reach_base: 25
+    posting_interval: 3
+  - alignment: "official_friendly"
+    reach_base: 20
+    posting_interval: 4
+
+visualization:
+  save_frames: true
+  frame_interval: 1
+  output_dir: "output_llm_demo"
+  figure_size: [12, 10]
+  dpi: 120
+
+logging:
+  level: "INFO"
+  log_file: "simulation.log"

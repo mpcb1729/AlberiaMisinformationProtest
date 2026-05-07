@@ -1,0 +1,8 @@
+requests
+pyyaml
+numpy
+matplotlib
+pillow
+imageio
+imageio-ffmpeg
+rich

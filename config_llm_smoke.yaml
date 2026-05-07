@@ -1,0 +1,92 @@
+# Minimal configuration for a quick Ollama/LLM smoke test.
+# This keeps the production demo config untouched while verifying that one
+# citizen can complete an LLM-backed simulation step.
+
+simulation:
+  steps: 1
+  width: 20
+  height: 20
+  seed: 42
+
+agents:
+  citizen_density: 0.0025
+  cop_density: 0.0
+  influencer_count: 0
+  official_count: 0
+  vision: 3
+  max_jail_term: 8
+  memory_limit: 5
+  message_context_size: 3
+  post_context_size: 3
+  llm_decision_interval: 1
+  initial_legitimacy_government: 0.5
+  initial_legitimacy_protest: 0.3
+  average_media_literacy: 0.5
+  average_trust_in_official_info: 0.5
+  average_trust_in_peer_info: 0.6
+
+llm:
+  model: "qwen3:8b"
+  base_url: "http://localhost:11434"
+  temperature: 0.2
+  max_tokens: 1024
+  repeat_penalty: 1.1
+  repeat_last_n: 128
+  min_p: 0.05
+  use_llm: true
+
+landmarks:
+  home_area:
+    x: [0, 5]
+    y: [0, 5]
+    center: [2, 2]
+  station:
+    x: [8, 11]
+    y: [0, 3]
+    center: [9, 1]
+  central_square:
+    x: [7, 13]
+    y: [7, 13]
+    center: [10, 10]
+  city_hall:
+    x: [15, 19]
+    y: [14, 19]
+    center: [17, 16]
+  media_zone:
+    x: [0, 4]
+    y: [14, 19]
+    center: [2, 16]
+  small_gathering_a:
+    x: [5, 8]
+    y: [9, 13]
+    center: [6, 11]
+  small_gathering_b:
+    x: [13, 17]
+    y: [3, 7]
+    center: [15, 5]
+  police_station:
+    x: [16, 19]
+    y: [0, 4]
+    center: [17, 2]
+  exit_zone:
+    x: [0, 3]
+    y: [9, 13]
+    center: [1, 11]
+
+events: []
+
+official:
+  response_delay: 30
+
+influencers: []
+
+visualization:
+  save_frames: false
+  frame_interval: 1
+  output_dir: "output_llm_smoke"
+  figure_size: [12, 10]
+  dpi: 120
+
+logging:
+  level: "INFO"
+  log_file: "simulation.log"

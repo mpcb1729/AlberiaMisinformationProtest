@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Local environments
+venv/
+.venv/
+
+# Runtime outputs
+output/
+output_llm_demo/
+output_llm_smoke/
+simulation.log
+llm_demo_*.log
+
+# Generated submission artifacts
+submission/
+*.mp4
+
+# Local/editor files
+.DS_Store
+Thumbs.db
+.env
+*.env
